@@ -9,7 +9,7 @@ interface headerProps {
     nameRightText?: string;
 }
 
-const Header: React.FC<headerProps> = ({ leftText, nameLeftText, rightText, nameRightText}) => {
+const Header: React.FC<headerProps> = ({ leftText, nameLeftText, rightText, nameRightText }) => {
 
     const navigation = useNavigation();
 

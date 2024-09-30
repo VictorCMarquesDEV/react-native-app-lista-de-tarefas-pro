@@ -14,7 +14,7 @@ export default function Entry() {
 
     return (
         <View style={styles.container}>
-            
+
             <Pressable style={styles.button} onPress={handleGoPerfil}>
                 <Text style={{ color: '#ffffff', fontSize: 20, fontWeight: 500 }}>Perfil</Text>
             </Pressable>

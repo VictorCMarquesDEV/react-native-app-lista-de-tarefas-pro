@@ -25,7 +25,7 @@ export function Task(props: TaskProps) {
                 {!props.status && <Feather name="circle" size={15} color="#292827" />}
                 {props.status && <Feather name="x" size={15} color="#FFFFFF" />}
             </TaskDone>
-            
+
             {!props.status && (
                 <TaskTextNoOk>{props.title}</TaskTextNoOk>
             )}

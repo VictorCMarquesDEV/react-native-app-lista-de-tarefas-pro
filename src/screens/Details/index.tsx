@@ -35,7 +35,7 @@ export default function Details() {
     return (
         <View style={styles.container}>
 
-            <Header leftText nameLeftText='< Voltar'/>
+            <Header leftText nameLeftText='< Voltar' />
             <Text style={{ color: '#292827', fontSize: 20, fontWeight: 500, marginBottom: 16 }}>Detalhes da Tarefa</Text>
             <View style={styles.containerText}>
                 <Text style={{ color: '#292827', fontSize: 16 }}>Nome: {task.title}</Text>
@@ -49,7 +49,7 @@ export default function Details() {
                 {!task.status && (
                     <ButtonBlack TitleButton="Concluir" onPress={() => handleTaskChangeStatus(task)} />
                 )}
-                
+
                 <ButtonOrange TitleButton="Excluir" onPress={() => handleTaskDelete(task)} />
 
             </View>
