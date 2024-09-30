@@ -1,21 +1,17 @@
 import { FlatList, StyleSheet, View, Text, Alert } from 'react-native';
-import { Task } from '../../../src/components/Task';
-import { CardNumber } from '../../../src/components/CardNumber';
-import { InputAddTask } from '../../../src/components/InputAddTask';
+import { Task } from '../../components/Task';
+import { InputAddTask } from '../../components/InputAddTask';
 import { useContext, useEffect, useState } from 'react';
 import { TaskContext } from '../../context/TaskContext';
 import { TaskProps } from '../../utils/types';
+import { Header } from '../../components/Header';
+import { useNavigation } from '@react-navigation/native';
 
 
-//app-lista: Aplicativo de Lista de Tarefas
-
-export default function Home() {
+export default function Tasks() {
 
     const { tasks, createTask, setTasks } = useContext(TaskContext);
     const [taskText, setTaskText] = useState("");
-    const [countTask, setCountTask] = useState(0);
-    const [countInProgress, setCountInProgress] = useState(0);
-    const [countCompleted, setCountCompleted] = useState(0);
 
     function handleTaskAdd() {
         if (taskText == "") {
@@ -27,7 +23,6 @@ export default function Home() {
 
         createTask(taskText);
         setTaskText('');
-        setCountInProgress(countInProgress + 1);
     }
 
     function handleTaskChangeStatus(taskToChange: TaskProps) {
@@ -39,54 +34,26 @@ export default function Home() {
         }
         updatedTasks.push(newTask);
         setTasks(updatedTasks);
-
-        if (taskToChange.status) {
-            setCountInProgress(countInProgress - 1);
-            setCountCompleted(countCompleted + 1);
-        } else {
-            setCountInProgress(countInProgress + 1);
-            setCountCompleted(countCompleted - 1);
-        }
     }
 
-    function handleTaskDelete(taskToDelete: TaskProps) {
-        const updatedTasks = tasks.filter((task) => task.title != taskToDelete.title)
-        setTasks(updatedTasks);
-
-        if (taskToDelete.status) {
-            setCountCompleted(countCompleted - 1);
-        } else {
-            setCountInProgress(countInProgress - 1);
-        }
-    };
-
     useEffect(() => {
-        let totalTasks = tasks.length;
-        setCountTask(totalTasks);
-
-        const inProgressTasks = tasks.filter((task) => !task.status);
-        const completedTasks = tasks.filter((task) => task.status);
-        setCountInProgress(inProgressTasks.length);
-        setCountCompleted(completedTasks.length);
 
     }, [tasks]);
 
     return (
         <View style={styles.container}>
+
+            <Header leftText nameLeftText='< Voltar' rightText nameRightText='Exportar >' />
+            <Text style={{ color: '#292827', fontSize: 20, fontWeight: 500, marginBottom: 16 }}>Lista de Tarefas</Text>
+
             <InputAddTask
                 onPress={handleTaskAdd}
                 onChangeText={setTaskText}
                 value={taskText}
             />
 
-            <View style={{ flexDirection: 'row', gap: 16 }}>
-                <CardNumber title='Tarefas' num={countTask} />
-                <CardNumber title='Andamento' num={countInProgress} />
-                <CardNumber title='Concluídas' num={countCompleted} />
-            </View>
-
             <View style={styles.tasks}>
-                <Text style={{ color: '#ffffff', fontSize: 16, fontWeight: 500, marginBottom: 16 }}>Lista de Tarefas: </Text>
+
                 <FlatList
                     data={tasks}
                     keyExtractor={(item, index) => index.toString()}
@@ -97,14 +64,13 @@ export default function Home() {
                                 title={item.title}
                                 status={item.status}
                                 onCheck={() => handleTaskChangeStatus(item)}
-                                onRemove={() => handleTaskDelete(item)}
                             />
                         )
                     }
                     ListEmptyComponent={() => (
                         <View style={{ alignItems: 'center' }}>
-                            <Text style={{ color: '#ffffff', fontSize: 16, fontWeight: 500 }}>Você ainda não cadastrou tarefas!</Text>
-                            <Text style={{ color: '#ffffff', fontSize: 16, fontWeight: 500 }}>Crie uma tarefa para começar.</Text>
+                            <Text style={{ color: '#292827', fontSize: 16, fontWeight: 500 }}>Você ainda não cadastrou tarefas!</Text>
+                            <Text style={{ color: '#292827', fontSize: 16, fontWeight: 500 }}>Crie uma tarefa para começar.</Text>
                         </View>
                     )}
                 />
@@ -116,7 +82,7 @@ export default function Home() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#28385E',
+        backgroundColor: '#DADADA',
         alignItems: 'center',
         justifyContent: 'flex-start',
         padding: 20,

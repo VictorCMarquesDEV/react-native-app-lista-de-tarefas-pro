@@ -1,9 +1,8 @@
-import { Feather } from '@expo/vector-icons';
-import { Container, Input, InputButton } from "./styles";
+import { Container, Input, InputButton, Text } from "./styles";
 
 type Props = {
     onPress: () => void;
-    onChangeText: (text0: string) => void;
+    onChangeText: (texto: string) => void;
     value: string;
 }
 
@@ -11,19 +10,14 @@ export function InputAddTask({ onPress, onChangeText, value }: Props) {
     return (
         <Container>
             <Input
-                placeholder='Digite a tarefa'
-                placeholderTextColor="#FFFFFF"
+                placeholder='Digite algo...'
+                placeholderTextColor="#292827"
                 keyboardType='default'
                 value={value}
                 onChangeText={onChangeText}
             />
-            <InputButton onPress={onPress}
-            >
-                <Feather
-                    name='plus-square'
-                    size={24}
-                    color='white'
-                />
+            <InputButton onPress={onPress}>
+                <Text>P</Text>
             </InputButton>
         </Container>
     );

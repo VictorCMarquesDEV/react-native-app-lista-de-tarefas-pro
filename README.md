@@ -1,7 +1,7 @@
 
 # App Lista de Tarefas PRO
 
-Este repositório contém o código fonte do aplicativo "Lista de Tarefas PRO", desenvolvido em React Native. O app permite aos usuários criar e marcar como concluídas suas tarefas diárias, além de exibir uma tela de detalhe de cada tarefa, o seu perfil e um calendário com as datas de cada tarefa marcada.
+Este repositório contém o código fonte do aplicativo "Lista de Tarefas PRO", desenvolvido em React Native. O app permite aos usuários criar e marcar como concluídas suas tarefas diárias, além de exibir uma tela de detalhe de cada tarefa, o perfil do usuário e um calendário personalizado.
 
 ### Tecnologias Utilizadas
 

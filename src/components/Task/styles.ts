@@ -2,34 +2,34 @@ import styled from 'styled-components/native';
 
 export const Container = styled.TouchableOpacity`
     width: 100%;
-    height: 56px;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    background-color: #304163;
-    border-radius: 4px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
     overflow: hidden;
     margin-bottom: 16px;
+    padding: 10px 10px;
+    gap: 10px;
 `
 
-export const TaskText = styled.Text`
-    color: #fff;
-    font-size: 16px;
+export const TaskTextNoOk = styled.Text`
+    color: #292827;
+    font-size: 20px;
     font-weight: 500;
+    flex: 1;
+`
+
+export const TaskTextOk = styled.Text`
+    color: #FFFFFF;
+    font-size: 20px;
+    font-weight: 500;
+    flex: 1;
 `
 
 export const TaskDone = styled.TouchableOpacity`
-    width: 56px;
-    height: 56px;
-    background-color: #E88A1A;
-    justify-content: center;
-    align-items: center;
-`
-
-export const TaskDelete = styled.TouchableOpacity`
-    width: 56px;
-    height: 56px;
-    background-color: #F22424;
+    width: 30px;
+    height: 30px;
     justify-content: center;
     align-items: center;
 `

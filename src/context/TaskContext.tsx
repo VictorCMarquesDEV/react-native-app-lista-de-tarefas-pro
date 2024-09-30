@@ -6,7 +6,7 @@ interface TaskContextProps {
     task: TaskProps;
     tasks: TaskProps[];
     selectTask: (task: TaskProps) => void;
-    clearTask: () => void;
+    clearTask: (task: TaskProps) => void;
     createTask: (title: string) => void;
     setTasks: ([]: TaskProps[]) => void;
 };
@@ -69,7 +69,7 @@ function TaskProvider({ children }: TaskProviderProps) {
         setTask(task);
     }
 
-    function clearTask() {
+    function clearTask(task: TaskProps) {
         setTask({ id: 0, title: '', status: false });
     }
 
