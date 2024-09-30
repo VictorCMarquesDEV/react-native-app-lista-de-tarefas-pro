@@ -1,19 +1,23 @@
 import { FlatList, StyleSheet, View, Text, Alert } from 'react-native';
 import { Task } from '../../components/Task';
 import { InputAddTask } from '../../components/InputAddTask';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { TaskContext } from '../../context/TaskContext';
 import { TaskProps } from '../../utils/types';
 import { Header } from '../../components/Header';
-import { useNavigation } from '@react-navigation/native';
+import { Formik } from 'formik';
+import * as Yup from 'yup'
 
 
 export default function Tasks() {
 
     const { tasks, createTask, setTasks } = useContext(TaskContext);
-    const [taskText, setTaskText] = useState("");
 
-    function handleTaskAdd() {
+    const TaskSchema = Yup.object().shape({
+        taskText: Yup.string().min(3, "No mínimo, 3 caracteres!").max(50, "No máximo, 50 caracteres!").required("Tarefa não pode ser vazia!")
+    });
+
+    function handleTaskAdd(taskText: string) {
         if (taskText == "") {
             return Alert.alert("Texto vazio. Digite algo!");
         }
@@ -22,7 +26,6 @@ export default function Tasks() {
         }
 
         createTask(taskText);
-        setTaskText('');
     }
 
     function handleTaskChangeStatus(taskToChange: TaskProps) {
@@ -46,11 +49,31 @@ export default function Tasks() {
             <Header leftText nameLeftText='< Voltar' rightText nameRightText='Exportar >' />
             <Text style={{ color: '#292827', fontSize: 20, fontWeight: 500, marginBottom: 16 }}>Lista de Tarefas</Text>
 
-            <InputAddTask
-                onPress={handleTaskAdd}
-                onChangeText={setTaskText}
-                value={taskText}
-            />
+            <Formik
+                initialValues={{ taskText: '' }}
+                validationSchema={TaskSchema}
+                onSubmit={(values, { resetForm }) => {
+                    handleTaskAdd(values.taskText);
+                    resetForm({ values: { taskText: '' } });
+                }}
+            >
+                {({ handleSubmit, handleChange, handleBlur, values, errors, touched }) => (
+                    <View>
+                        <InputAddTask
+                            onPress={handleSubmit}
+                            onChangeText={handleChange('taskText')}
+                            onBlur={handleBlur('taskText')}
+                            value={values.taskText}
+                        />
+
+                        {touched.taskText && errors.taskText && (
+                            <Text style={{ color: '#ff0000' }}>{errors.taskText}</Text>
+                        )}
+
+                    </View>
+                )}
+
+            </Formik>
 
             <View style={styles.tasks}>
 
